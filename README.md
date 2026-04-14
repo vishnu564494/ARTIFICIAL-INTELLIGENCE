@@ -117,4 +117,24 @@ def astar(graph, h, start, goal):
                 f = new_g + h[neigh]
                 heapq.heappush(pq, (f, neigh))
 
+
+import heapq
+
+def gbfs(graph, h, start, goal):
+    visited = set()
+    pq = [(h[start], start)]
+
+    while pq:
+        _, node = heapq.heappop(pq)
+
+        if node == goal:
+            print("Reached Goal")
+            return
+
+        if node in visited:
+            continue
+        visited.add(node)
+
+        for n in graph[node]:
+            heapq.heappush(pq, (h[n], n))
                 
