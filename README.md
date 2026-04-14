@@ -47,6 +47,36 @@ def water_jug(cap1, cap2, goal):
         q.append((x - min(x, cap2-y), y + min(x, cap2-y)))  
         q.append((x + min(y, cap1-x), y - min(y, cap1-x)))  
 
+from collections import deque
+
+def jug():
+    cap = (A, B, C)          # capacities
+    start = (x, y, z)        # start state
+    goal = (gx, gy, gz)      # goal state
+
+    visited = set()
+    q = deque([start])
+
+    while q:
+        a, b, c = q.popleft()
+
+        if (a, b, c) == goal:
+            print(a, b, c)
+            return
+
+        if (a, b, c) in visited:
+            continue
+        visited.add((a, b, c))
+
+        # all pour operations
+        q.append((max(0,a-(cap[1]-b)), min(cap[1],b+a), c))
+        q.append((max(0,a-(cap[2]-c)), b, min(cap[2],c+a)))
+        q.append((min(cap[0],a+b), max(0,b-(cap[0]-a)), c))
+        q.append((a, max(0,b-(cap[2]-c)), min(cap[2],c+b)))
+        q.append((min(cap[0],a+c), b, max(0,c-(cap[0]-a))))
+        q.append((a, min(cap[1],b+c), max(0,c-(cap[1]-b))))
+        
+
 def ucs(graph, start, goal):
     visited = set()
     pq = [(0, start)]   # (cost, node)
