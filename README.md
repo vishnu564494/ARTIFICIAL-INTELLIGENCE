@@ -137,4 +137,34 @@ def gbfs(graph, h, start, goal):
 
         for n in graph[node]:
             heapq.heappush(pq, (h[n], n))
+
+            Algorithm ID3_RootNode(D, A, T):
+
+Input:
+    D = dataset
+    A = set of attributes
+    T = target attribute (class label)
+
+Steps:
+
+1. Compute Entropy(D):
+       Entropy(D) = - Σ (p_i * log2(p_i))
+       where p_i = proportion of class i in D
+
+2. For each attribute a in A:
+       For each value v of a:
+           D_v = subset of D where a = v
+           Compute Entropy(D_v)
+       WeightedEntropy(a) = Σ (|D_v| / |D|) * Entropy(D_v)
+       Gain(a) = Entropy(D) - WeightedEntropy(a)
+
+3. Select attribute a* with maximum Gain(a)
+       RootNode = a*
+
+Output:
+    RootNode
+
+
+
+            
                 
